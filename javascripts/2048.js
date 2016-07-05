@@ -75,19 +75,40 @@ Game.prototype.buildUpArray = function() {
   var array3 = [0, 0, 0, 0];
   for (var tile in this.container) {
     if (this.container[tile].col === 0) {
-      array0[this.container[tile].row] = [this.container[tile].col, this.container[tile].row, this.container[tile].val]
+      array0[this.container[tile].row] = [tile, this.container[tile].col, this.container[tile].row, this.container[tile].val]
     } else if (this.container[tile].col === 1) {
-      array1[this.container[tile].row] = [this.container[tile].col, this.container[tile].row, this.container[tile].val]
+      array1[this.container[tile].row] = [tile, this.container[tile].col, this.container[tile].row, this.container[tile].val]
     } else if (this.container[tile].col === 2) {
-      array2[this.container[tile].row] = [this.container[tile].col, this.container[tile].row, this.container[tile].val]
+      array2[this.container[tile].row] = [tile, this.container[tile].col, this.container[tile].row, this.container[tile].val]
     } else if (this.container[tile].col === 3) {
-      array3[this.container[tile].row] = [this.container[tile].col, this.container[tile].row, this.container[tile].val]
+      array3[this.container[tile].row] = [tile, this.container[tile].col, this.container[tile].row, this.container[tile].val]
     }
   };
   console.log(array0);
   console.log(array1)
   console.log(array2)
   console.log(array3)
+
+  // shift arrays and update div and object values
+  // first step is to just move tiles up as far as they go (end of board or another tile)
+  for (var i = 0; i < 4; i++) {
+    if (array0[0] === 0) {
+      array0.shift();
+    } else {
+      // put element at top if there is nothing to combine with yet
+      this.container[id].col = rando_col;
+      this.container[id].row = rando_row;
+      this.container[id].val = val;
+
+    // update div info
+    tileQ.attr('data-row', "r" + rando_row);
+    tileQ.attr('data-col', "c" + rando_col);
+    tileQ.attr('data-val', val);
+    tileQ.text(val);
+
+    } 
+  }
+
 };
 
 $(document).ready(function() {
