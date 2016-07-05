@@ -25,6 +25,10 @@ $(document).ready(function() {
   // Any interactive jQuery functionality
   var game = new Game();
 
+  $('.new-game').on('click', function(event) {
+    $('.tile').text('')
+  })
+
   $('body').keydown(function(event){
     var arrows = [37, 38, 39, 40];
     if (arrows.indexOf(event.which) > -1) {
