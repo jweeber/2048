@@ -2,7 +2,7 @@ var Game = function() {
   // Game logic and initialization here
      this.container = {
       1: {'col': 4},
-      2: {},
+      2: {'col': 4},
       3: {},
       4: {},
       5: {},
@@ -27,13 +27,26 @@ var Game = function() {
 Game.prototype.newTile = function () {
  for (var space in this.container) {
   if (this.container[space].col === undefined) {
-    
+    var tileQ = $('#' + space)
+    // get random col and row 
+    var rando_col = Math.floor((Math.random() * 4) + 0);
+    var rando_row = Math.floor((Math.random() * 4) + 0);
+    var val = 2;
+    // update object
+    this.container[space].col = rando_col;
+    this.container[space].row = rando_row;
+    this.container[space].val = val;
+
+    // update div info
+    tileQ.attr('data-row', "r" + rando_row);
+    tileQ.attr('data-col', "c" + rando_col);
+    tileQ.attr('data-val', val);
+    tileQ.text(val);
+    console.log(tile.textContent);
+    return
   } 
- }
-
-
-
-}
+ };
+};
 
 Game.prototype.moveTile = function(tile, direction) {
   // Game method here
