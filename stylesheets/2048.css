@@ -48,6 +48,8 @@ html {
 .tile[data-col=c2] { left: 9rem; }
 .tile[data-col=c3] { left: 13.5rem; }
 
+.tile[data-val="0"]    {background-color: rgba(238, 228, 218, 0.35);}
+
 .tile[data-val="2"]    { color: #776e65; background-color: #eee4da; }
 .tile[data-val="4"]    { color: #776e65; background-color: #ede0c8; }
 .tile[data-val="8"]    { background-color: #f2b179; }

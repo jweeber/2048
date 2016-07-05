@@ -1,6 +1,16 @@
 var Game = function() {
   // Game logic and initialization here
+  var board = { }
+  //   'container': {}
+  //   'row':
+  //   'column': 
+  //   'data':
 };
+
+Game.prototype.newTile = function (slots) {
+  
+
+}
 
 Game.prototype.moveTile = function(tile, direction) {
   // Game method here
@@ -27,6 +37,10 @@ $(document).ready(function() {
 
   $('.new-game').on('click', function(event) {
     $('.tile').text('')
+    $('.tile').css('background', 'rgba(238, 228, 218, 0.35)')
+    function getRandomIntInclusive(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
   })
 
   $('body').keydown(function(event){
