@@ -1,8 +1,8 @@
 var Game = function() {
   // Game logic and initialization here
      this.container = {
-      1: {'col': 4},
-      2: {'col': 4},
+      1: {},
+      2: {},
       3: {},
       4: {},
       5: {},
@@ -42,7 +42,8 @@ Game.prototype.newTile = function () {
     tileQ.attr('data-col', "c" + rando_col);
     tileQ.attr('data-val', val);
     tileQ.text(val);
-    console.log(tile.textContent);
+
+    // need to check that something isn't already on this tile
     return
   } 
  };
@@ -53,6 +54,7 @@ Game.prototype.moveTile = function(tile, direction) {
   switch(direction) {
     case 38: //up
       console.log('up');
+      this.buildUpArray();
       break;
     case 40: //down
       console.log('down');
@@ -66,6 +68,28 @@ Game.prototype.moveTile = function(tile, direction) {
   }
 };
 
+Game.prototype.buildUpArray = function() {
+  var array0 = [0, 0, 0, 0];
+  var array1 = [0, 0, 0, 0];
+  var array2 = [0, 0, 0, 0];
+  var array3 = [0, 0, 0, 0];
+  for (var tile in this.container) {
+    if (this.container[tile].col === 0) {
+      array0[this.container[tile].row] = [this.container[tile].col, this.container[tile].row, this.container[tile].val]
+    } else if (this.container[tile].col === 1) {
+      array1[this.container[tile].row] = [this.container[tile].col, this.container[tile].row, this.container[tile].val]
+    } else if (this.container[tile].col === 2) {
+      array2[this.container[tile].row] = [this.container[tile].col, this.container[tile].row, this.container[tile].val]
+    } else if (this.container[tile].col === 3) {
+      array3[this.container[tile].row] = [this.container[tile].col, this.container[tile].row, this.container[tile].val]
+    }
+  };
+  console.log(array0);
+  console.log(array1)
+  console.log(array2)
+  console.log(array3)
+};
+
 $(document).ready(function() {
   console.log("ready to go!");
   // Any interactive jQuery functionality
@@ -74,7 +98,8 @@ $(document).ready(function() {
   $('.new-game').on('click', function(event) {
     $('.tile').text('')
     $('.tile').css('background', 'rgba(238, 228, 218, 0.35)')
-    game.newTile()
+    game.newTile();
+    game.newTile();
   })
 
   $('body').keydown(function(event){
@@ -85,4 +110,6 @@ $(document).ready(function() {
       game.moveTile(tile, event.which);
     }
   });
+
+
 });
