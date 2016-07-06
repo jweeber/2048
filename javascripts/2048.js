@@ -94,17 +94,30 @@ Game.prototype.buildUpArray = function() {
   for (var i = 0; i < 4; i++) {
     if (array0[0] === 0) {
       array0.shift();
-    } else {
+    } else if (array0[0] != 0) {
+      // if at top of array, leave there and check the next element
+      if (array0[1] === 0) {
+        array0.shift();
+      } else {
+        if (array0[0][3] === array0[1][3]) {
+          console.log(array0[0][0])
+          console.log(array0[1][0])
+          // write a function to clear div/obj 1 and double val in 0
+        }
+      }
+      continue
+
+
       // put element at top if there is nothing to combine with yet
-      this.container[id].col = rando_col;
-      this.container[id].row = rando_row;
-      this.container[id].val = val;
+      // this.container[id].col = rando_col;
+      // this.container[id].row = rando_row;
+      // this.container[id].val = val;
 
     // update div info
-    tileQ.attr('data-row', "r" + rando_row);
-    tileQ.attr('data-col', "c" + rando_col);
-    tileQ.attr('data-val', val);
-    tileQ.text(val);
+    // tileQ.attr('data-row', "r" + rando_row);
+    // tileQ.attr('data-col', "c" + rando_col);
+    // tileQ.attr('data-val', val);
+    // tileQ.text(val);
 
     } 
   }
