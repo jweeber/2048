@@ -28,11 +28,14 @@ Game.prototype.boardState = function() {
   // go through current container objects and make an array of used coordinates ([row, col])
   var array = [];
   for (var tile in this.container) {
-    if (tile != undefined) {      
+    // console.log(this.container[tile].val + "this continer tile")   
+    if (this.container[tile].val === undefined) {   
+    console.log("hallo?")
     array.push([this.container[tile].row, this.container[tile].col]);
     }
   }
   console.log(array + " = BOARDSTATE ARRAY")
+  return array;
 };
 
 Game.prototype.newTile = function () {
@@ -47,7 +50,13 @@ Game.prototype.newTile = function () {
     var val = 2;
 
     // need to check if div exists with same col/row
-
+    var boardState = this.boardState();
+    for (var coordinate of boardState) {
+      if (coordinate[0] === rando_row && coordinate[1] === rando_col) {
+        // if there is a match, generate different tile/coordinates
+        // this.newTile();
+      }
+    }
 
     // update div info
     tileQ.attr('data-row', "r" + rando_row);
@@ -72,6 +81,7 @@ Game.prototype.moveTile = function(tile, direction) {
     case 38: //up
       console.log('up');
       this.buildUpArray();
+      // this.newTile();
       break;
     case 40: //down
       console.log('down');
