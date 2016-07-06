@@ -1,26 +1,5 @@
 var Game = function() {
   // Game logic and initialization here
-  //    this.container = {
-  //     1: {},
-  //     2: {},
-  //     3: {},
-  //     4: {},
-  //     5: {},
-  //     6: {},
-  //     7: {},
-  //     8: {},
-  //     9: {},
-  //     10: {},
-  //     11: {},
-  //     12: {},
-  //     13: {},
-  //     14: {},
-  //     15: {},
-  //     16: {}
-  //   }
-  // //   'row':
-  // //   'column': 
-  // //   'data':
 
   this.container = [
     [0, 0, 0, 0],
@@ -33,25 +12,25 @@ var Game = function() {
 
 Game.prototype.boardState = function() {
   // go through current container objects and make an array of used coordinates ([row, col])
-  var array = [];
+  var array = []
   for (var tile in this.container) {
     // console.log(this.container[tile].val + "this continer tile")   
     if (this.container[tile].val === undefined) {   
     console.log("hallo?")
-    array.push([this.container[tile].row, this.container[tile].col]);
+    array.push([this.container[tile].row, this.container[tile].col])
     }
   }
   console.log(array + " = BOARDSTATE ARRAY")
-  return array;
-};
+  return array
+}
 
 Game.prototype.newTile = function () {
     // get random col and row 
-    var rando_col = Math.floor(Math.random() * (4 - 0) + 0);
+    var rando_col = Math.floor(Math.random() * (4 - 0) + 0)
     console.log(rando_col)
-    var rando_row = Math.floor(Math.random() * (4 - 0) + 0);
+    var rando_row = Math.floor(Math.random() * (4 - 0) + 0)
     console.log(rando_row)
-    var val = 2;
+    var val = 2
     if (this.container[rando_row][rando_col] === 0) {
     this.container[rando_row][rando_col] = val
     } else {
@@ -63,37 +42,35 @@ Game.prototype.newTile = function () {
     var id = (rando_row * 4) + rando_col
     // update div info
     var tileQ = $('#' + id)
-    tileQ.attr('data-val', val);
+    tileQ.attr('data-val', val)
     tileQ.text(val)
-
-    console.log(this.container)
-};
+}
 
 Game.prototype.moveTile = function(tile, direction) {
   // Game method here
   switch(direction) {
     case 38: //up
-      console.log('up');
-      this.buildUpArray();
-      // this.newTile();
-      break;
+      console.log('up')
+      this.buildUpArray()
+      // this.newTile()
+      break
     case 40: //down
-      console.log('down');
-      break;
+      console.log('down')
+      break
     case 37: //left
-      console.log('left');
-      break;
+      console.log('left')
+      break
     case 39: //right
-      console.log('right');
-      break;
+      console.log('right')
+      break
   }
-};
+}
 
 Game.prototype.buildUpArray = function() {
-  // var array0 = [0, 0, 0, 0];
-  // var array1 = [0, 0, 0, 0];
-  // var array2 = [0, 0, 0, 0];
-  // var array3 = [0, 0, 0, 0];
+  // var array0 = [0, 0, 0, 0]
+  // var array1 = [0, 0, 0, 0]
+  // var array2 = [0, 0, 0, 0]
+  // var array3 = [0, 0, 0, 0]
   // for (var tile in this.container) {
   //   if (this.container[tile].col === 0) {
   //     array0[this.container[tile].row] = [tile, this.container[tile].col, this.container[tile].row, this.container[tile].val]
@@ -104,21 +81,21 @@ Game.prototype.buildUpArray = function() {
   //   } else if (this.container[tile].col === 3) {
   //     array3[this.container[tile].row] = [tile, this.container[tile].col, this.container[tile].row, this.container[tile].val]
   //   }
-  // };
-  // console.log(array0);
+  // }
+  // console.log(array0)
   // console.log(array1)
   // console.log(array2)
   // console.log(array3)
 
   // shift arrays and update div and object values
   // first step is to just move tiles up as far as they go (end of board or another tile)
-  // for (var i = 0; i < 4; i++) {
+  // for (var i = 0 i < 4 i++) {
   //   if (array0[0] === 0) {
-  //     array0.shift();
+  //     array0.shift()
   //   } else if (array0[0] != 0) {
   //     // if at top of array, leave there and check the next element
   //     if (array0[1] === 0) {
-  //       array0.shift();
+  //       array0.shift()
   //     } else {
   //       if (array0[0][3] === array0[1][3]) {
   //         console.log(array0[0][0])
@@ -130,41 +107,41 @@ Game.prototype.buildUpArray = function() {
 
 
       // put element at top if there is nothing to combine with yet
-      // this.container[id].col = rando_col;
-      // this.container[id].row = rando_row;
-      // this.container[id].val = val;
+      // this.container[id].col = rando_col
+      // this.container[id].row = rando_row
+      // this.container[id].val = val
 
     // update div info
-    // tileQ.attr('data-row', "r" + rando_row);
-    // tileQ.attr('data-col', "c" + rando_col);
-    // tileQ.attr('data-val', val);
-    // tileQ.text(val);
+    // tileQ.attr('data-row', "r" + rando_row)
+    // tileQ.attr('data-col', "c" + rando_col)
+    // tileQ.attr('data-val', val)
+    // tileQ.text(val)
     // } 
-    // this.newTile();
+    // this.newTile()
   // }
 
-};
+}
 
 $(document).ready(function() {
-  console.log("ready to go!");
+  console.log("ready to go!")
   // Any interactive jQuery functionality
-  var game = new Game();
+  var game = new Game()
 
   $('.new-game').on('click', function(event) {
     $('.tile').text('')
     $('.tile').css('background', 'rgba(238, 228, 218, 0.35)')
-    game.newTile();
-    // game.newTile();
+    game.newTile()
+    // game.newTile()
   })
 
   $('body').keydown(function(event){
-    var arrows = [37, 38, 39, 40];
+    var arrows = [37, 38, 39, 40]
     if (arrows.indexOf(event.which) > -1) {
-      var tile = $('.tile');
+      var tile = $('.tile')
       
-      game.moveTile(tile, event.which);
+      game.moveTile(tile, event.which)
     }
-  });
+  })
 
 
-});
+})
