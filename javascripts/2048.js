@@ -24,6 +24,20 @@ var Game = function() {
 //   return array
 // }
 
+Game.prototype.updateBoard = function() {
+  console.log(this.container[0])
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 4; j++) {
+      var id = (i * 4) + j
+      var tileQ = $('#' + id)
+      tileQ.attr('data-val', this.container[i][j])
+      tileQ.text(this.container[i][j])
+      console.log(id)
+      console.log(this.container[i][j])
+    }
+  }
+}
+
 Game.prototype.newTile = function () {
     // get random col and row 
     var rando_col = Math.floor(Math.random() * (4 - 0) + 0)
@@ -67,6 +81,7 @@ Game.prototype.moveTile = function(tile, direction) {
 Game.prototype.buildLeftArray = function () {
   this.container = this.shiftArrays(this.container)
   console.log(this.container)
+  this.updateBoard()
 }
 
 Game.prototype.shiftArrays = function (arrays) {
