@@ -1,26 +1,33 @@
 var Game = function() {
   // Game logic and initialization here
-     this.container = {
-      1: {},
-      2: {},
-      3: {},
-      4: {},
-      5: {},
-      6: {},
-      7: {},
-      8: {},
-      9: {},
-      10: {},
-      11: {},
-      12: {},
-      13: {},
-      14: {},
-      15: {},
-      16: {}
-    }
-  //   'row':
-  //   'column': 
-  //   'data':
+  //    this.container = {
+  //     1: {},
+  //     2: {},
+  //     3: {},
+  //     4: {},
+  //     5: {},
+  //     6: {},
+  //     7: {},
+  //     8: {},
+  //     9: {},
+  //     10: {},
+  //     11: {},
+  //     12: {},
+  //     13: {},
+  //     14: {},
+  //     15: {},
+  //     16: {}
+  //   }
+  // //   'row':
+  // //   'column': 
+  // //   'data':
+
+  this.container = [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0]
+  ]
 
 }
 
@@ -39,40 +46,27 @@ Game.prototype.boardState = function() {
 };
 
 Game.prototype.newTile = function () {
- for (var space in this.container) {
-  if (this.container[space].col === undefined) {
-    var tileQ = $('#' + space)
-    
-
     // get random col and row 
-    var rando_col = Math.floor((Math.random() * 4) + 0);
-    var rando_row = Math.floor((Math.random() * 4) + 0);
+    var rando_col = Math.floor(Math.random() * (4 - 0) + 0);
+    console.log(rando_col)
+    var rando_row = Math.floor(Math.random() * (4 - 0) + 0);
+    console.log(rando_row)
     var val = 2;
+    if (this.container[rando_row][rando_col] === 0) {
+    this.container[rando_row][rando_col] = val
+    } else {
 
-    // need to check if div exists with same col/row
-    var boardState = this.boardState();
-    for (var coordinate of boardState) {
-      if (coordinate[0] === rando_row && coordinate[1] === rando_col) {
-        // if there is a match, generate different tile/coordinates
-        // this.newTile();
-      }
+      this.newTile()
     }
+    // get div id
 
+    var id = (rando_row * 4) + rando_col
     // update div info
-    tileQ.attr('data-row', "r" + rando_row);
-    tileQ.attr('data-col', "c" + rando_col);
+    var tileQ = $('#' + id)
     tileQ.attr('data-val', val);
-    tileQ.text(val);
-    // update object
-    this.container[space].col = rando_col;
-    this.container[space].row = rando_row;
-    this.container[space].val = val;
+    tileQ.text(val)
 
-
-    // need to check that something isn't already on this tile
-    return
-  } 
- };
+    console.log(this.container)
 };
 
 Game.prototype.moveTile = function(tile, direction) {
@@ -96,25 +90,25 @@ Game.prototype.moveTile = function(tile, direction) {
 };
 
 Game.prototype.buildUpArray = function() {
-  var array0 = [0, 0, 0, 0];
-  var array1 = [0, 0, 0, 0];
-  var array2 = [0, 0, 0, 0];
-  var array3 = [0, 0, 0, 0];
-  for (var tile in this.container) {
-    if (this.container[tile].col === 0) {
-      array0[this.container[tile].row] = [tile, this.container[tile].col, this.container[tile].row, this.container[tile].val]
-    } else if (this.container[tile].col === 1) {
-      array1[this.container[tile].row] = [tile, this.container[tile].col, this.container[tile].row, this.container[tile].val]
-    } else if (this.container[tile].col === 2) {
-      array2[this.container[tile].row] = [tile, this.container[tile].col, this.container[tile].row, this.container[tile].val]
-    } else if (this.container[tile].col === 3) {
-      array3[this.container[tile].row] = [tile, this.container[tile].col, this.container[tile].row, this.container[tile].val]
-    }
-  };
-  console.log(array0);
-  console.log(array1)
-  console.log(array2)
-  console.log(array3)
+  // var array0 = [0, 0, 0, 0];
+  // var array1 = [0, 0, 0, 0];
+  // var array2 = [0, 0, 0, 0];
+  // var array3 = [0, 0, 0, 0];
+  // for (var tile in this.container) {
+  //   if (this.container[tile].col === 0) {
+  //     array0[this.container[tile].row] = [tile, this.container[tile].col, this.container[tile].row, this.container[tile].val]
+  //   } else if (this.container[tile].col === 1) {
+  //     array1[this.container[tile].row] = [tile, this.container[tile].col, this.container[tile].row, this.container[tile].val]
+  //   } else if (this.container[tile].col === 2) {
+  //     array2[this.container[tile].row] = [tile, this.container[tile].col, this.container[tile].row, this.container[tile].val]
+  //   } else if (this.container[tile].col === 3) {
+  //     array3[this.container[tile].row] = [tile, this.container[tile].col, this.container[tile].row, this.container[tile].val]
+  //   }
+  // };
+  // console.log(array0);
+  // console.log(array1)
+  // console.log(array2)
+  // console.log(array3)
 
   // shift arrays and update div and object values
   // first step is to just move tiles up as far as they go (end of board or another tile)
@@ -146,7 +140,7 @@ Game.prototype.buildUpArray = function() {
     // tileQ.attr('data-val', val);
     // tileQ.text(val);
     // } 
-    this.newTile();
+    // this.newTile();
   // }
 
 };
@@ -160,7 +154,7 @@ $(document).ready(function() {
     $('.tile').text('')
     $('.tile').css('background', 'rgba(238, 228, 218, 0.35)')
     game.newTile();
-    game.newTile();
+    // game.newTile();
   })
 
   $('body').keydown(function(event){
