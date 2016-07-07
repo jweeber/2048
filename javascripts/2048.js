@@ -27,9 +27,11 @@ Game.prototype.newTile = function () {
 
   // generate new random cell while condition is true
   var random_cell
-  do {
-    random_cell = Math.floor(Math.random() * 16)
-  } while (this.container[random_cell] != 0)
+  if (this.container.includes(0) === true) {
+    do {
+      random_cell = Math.floor(Math.random() * 16)
+    } while (this.container[random_cell] != 0)
+  }
 
   // update container
   this.container[random_cell] = val
@@ -157,8 +159,16 @@ Game.prototype.buildRightArray = function () {
 }
 
 Game.prototype.shiftRow = function(row) {
-  var shifted = [];
-  var can_merge = true;
+  var allLost = 0
+  if (this.checkLose(row)) {
+    allLost += 1
+    if (allLost === 4) {
+      return false
+    }
+  }
+
+  var shifted = []
+  var can_merge = true
 
   // shift elements in a row to the left
   for (var el of row) {
@@ -168,8 +178,8 @@ Game.prototype.shiftRow = function(row) {
     }
 
     if (can_merge &&
-        // ensure there is something valid to merge with
-        shifted.length && shifted[shifted.length-1] === el) {
+      // ensure there is something valid to merge with
+      shifted.length && shifted[shifted.length-1] === el) {
       shifted[shifted.length-1] *= 2;
       can_merge = false;
     } else {
@@ -184,6 +194,23 @@ Game.prototype.shiftRow = function(row) {
   }
 
   return shifted;
+}
+
+Game.prototype.checkLose = function(array) {
+  // check that there is no zeros
+  if (array.includes(0)) {
+    return false
+  }
+
+  // check that nothing can be collapsed
+  var prev = 0
+  for (var li of array) {
+    if (li === prev) {
+      return true
+    }
+    prev = li
+  }
+  return false
 }
 
 $(document).ready(function() {
