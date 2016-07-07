@@ -7,6 +7,8 @@ var Game = function() {
     0, 0, 0, 0,
     0, 0, 0, 0
   ]
+
+  this.score = 0
 }
 
 Game.prototype.updateBoard = function() {
@@ -14,7 +16,8 @@ Game.prototype.updateBoard = function() {
     var tileQ = $('#' + i)
     if (this.container[i] != 0) {
       tileQ.attr('data-val', this.container[i])
-      tileQ.text(this.container[i])
+      // var tileVal = tileQ.text(this.container[i])
+      if (this.container[i] === "2048") { $('.win-lose').text('You got 2048!') }
     } else {
       tileQ.attr('data-val', 0)
       tileQ.text("")
@@ -23,7 +26,7 @@ Game.prototype.updateBoard = function() {
 }
 
 Game.prototype.newTile = function () {
-  var val = 2
+ var val = 2
 
   // generate new random cell while condition is true
   var random_cell
@@ -39,7 +42,7 @@ Game.prototype.newTile = function () {
   // update div info
   var tileQ = $('#' + random_cell)
   tileQ.attr('data-val', val)
-  tileQ.text(val)
+  // tileQ.text(val)
 }
 
 Game.prototype.moveTile = function(tile, direction) {
@@ -104,7 +107,6 @@ Game.prototype.buildUpArray = function () {
 
       // when array is constructed pass to shiftRow function to shift
       if (up_a.length === 4) {
-        // console.log("a" + temp_a)
         var up_b = this.shiftRow(up_a);
 
         // put row elements back in container
@@ -179,9 +181,11 @@ Game.prototype.shiftRow = function(row) {
     }
 
     if (can_merge &&
-      // ensure there is something valid to merge with
-      shifted.length && shifted[shifted.length-1] === el) {
-      shifted[shifted.length-1] *= 2;
+        // ensure there is something valid to merge with
+        shifted.length && shifted[shifted.length-1] === el) {
+          var points = shifted[shifted.length-1] *= 2;
+          this.score += points
+          $('.score').text(this.score)
       can_merge = false;
     } else {
       shifted.push(el);
@@ -215,8 +219,6 @@ Game.prototype.checkLose = function(array) {
 }
 
 $(document).ready(function() {
-  console.log("ready to go!")
-
   function newGame() {
     game = new Game()
     game.newTile()
@@ -227,7 +229,7 @@ $(document).ready(function() {
 
   $('.new-game').on('click', function(event) {
     $('.tile').text('')
-    $('.tile').css('background', 'rgba(238, 228, 218, 0.35)')
+    $('.tile').attr('data-val', "0")
     newGame()
   })
 
