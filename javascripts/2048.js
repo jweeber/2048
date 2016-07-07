@@ -52,11 +52,10 @@ Game.prototype.moveTile = function(tile, direction) {
       console.log('down')
       break
     case 37: //left
-      // console.log('left')
       this.buildLeftArray()
       break
     case 39: //right
-      // this.buildLeftArray()
+      this.buildRightArray()
       break
   }
 }
@@ -68,6 +67,27 @@ Game.prototype.buildLeftArray = function () {
     // update to be similiar to loop below to update container to make work on cols
     var a = this.container.slice(i*4, i*4+4)
     var b = this.shiftRow(a)
+
+    // update this.container
+    for (let j = 0; j < 4; j++) {
+      this.container[i * 4 + j] = b[j]
+    }
+  }
+  this.updateBoard()
+  this.newTile()
+}
+
+Game.prototype.buildRightArray = function () {
+  // create and feed correct arrays from this.container
+  for (let i = 0; i < 4; i++) {    
+    // get row to shift
+    // update to be similiar to loop below to update container to make work on cols
+    var a = this.container.slice(i*4, i*4+4)
+    // reverse arrays before sending to shift
+    a = a.reverse()
+    var b = this.shiftRow(a)
+    // reverse back before sending back to container
+    b = b.reverse()
 
     // update this.container
     for (let j = 0; j < 4; j++) {
