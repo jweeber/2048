@@ -24,12 +24,6 @@ Game.prototype.updateBoard = function() {
   }
 }
 
-// Game.prototype.score = function (points) {
-
-//    $('.score').text('')
-
-// }
-
 Game.prototype.newTile = function () {
   var val = 2
 
