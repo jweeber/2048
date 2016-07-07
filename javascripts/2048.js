@@ -7,6 +7,8 @@ var Game = function() {
     0, 0, 0, 0,
     0, 0, 0, 0
   ]
+
+  this.score = 0
 }
 
 Game.prototype.updateBoard = function() {
@@ -21,6 +23,12 @@ Game.prototype.updateBoard = function() {
     }
   }
 }
+
+// Game.prototype.score = function (points) {
+
+//    $('.score').text('')
+
+// }
 
 Game.prototype.newTile = function () {
   var val = 2
@@ -102,9 +110,7 @@ Game.prototype.buildUpArray = function () {
 
       // when array is constructed pass to shiftRow function to shift
       if (up_a.length === 4) {
-        // console.log("a" + temp_a)
         var up_b = this.shiftRow(up_a);
-        console.log("b" + up_b)
 
         // put row elements back in container
         for (let k = 0; k < 4; k++) {
@@ -170,7 +176,9 @@ Game.prototype.shiftRow = function(row) {
     if (can_merge &&
         // ensure there is something valid to merge with
         shifted.length && shifted[shifted.length-1] === el) {
-      shifted[shifted.length-1] *= 2;
+          var points = shifted[shifted.length-1] *= 2;
+          this.score += points
+          $('.score').text(this.score)
       can_merge = false;
     } else {
       shifted.push(el);
@@ -187,8 +195,6 @@ Game.prototype.shiftRow = function(row) {
 }
 
 $(document).ready(function() {
-  console.log("ready to go!")
-
   function newGame() {
     game = new Game()
     game.newTile()
