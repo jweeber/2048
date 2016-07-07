@@ -7,12 +7,6 @@ var Game = function() {
     0, 0, 0, 0,
     0, 0, 0, 0
   ]
-  // [
-  //   0, 1, 2, 3,
-  //   0, 1, 2, 3,
-  //   0, 1, 2, 3,
-  //   0, 1, 2, 3
-  // ]
 }
 
 Game.prototype.updateBoard = function() {
@@ -50,11 +44,10 @@ Game.prototype.moveTile = function(tile, direction) {
   // Game method here
   switch(direction) {
     case 38: //up
-    console.log("UP")
       this.buildUpArray()
       break
     case 40: //down
-      console.log('down')
+      this.buildDownArray()
       break
     case 37: //left
       this.buildLeftArray()
@@ -63,6 +56,37 @@ Game.prototype.moveTile = function(tile, direction) {
       this.buildRightArray()
       break
   }
+}
+
+Game.prototype.buildDownArray = function () {
+  // empty container for shifted rows
+  var up_arrays = this.container
+
+  for (let i = 0; i < 4; i++) {    
+    // blank array to hold elements 
+    var up_a = [];
+    // iterate through container 4 times to build transposed arrays
+    for (let j = 0; j < 4; j++) {
+      up_a[j] = this.container[j * 4 + i];
+
+      // when array is constructed pass to shiftRow function to shift
+      if (up_a.length === 4) {
+        // reverse before we send to shiftRow
+        var up_a = up_a.reverse()
+        var up_b = this.shiftRow(up_a);
+        up_b = up_b.reverse()
+        // reverse before we send to back to container
+
+        // put row elements back in container
+        for (let k = 0; k < 4; k++) {
+          up_arrays[k * 4 + i] = up_b[k]
+        }
+      }
+    }
+    this.container = up_arrays
+  }
+  this.updateBoard()
+  this.newTile()
 }
 
 Game.prototype.buildUpArray = function () {
