@@ -7,6 +7,12 @@ var Game = function() {
     0, 0, 0, 0,
     0, 0, 0, 0
   ]
+  // [
+  //   0, 1, 2, 3,
+  //   0, 1, 2, 3,
+  //   0, 1, 2, 3,
+  //   0, 1, 2, 3
+  // ]
 }
 
 Game.prototype.updateBoard = function() {
@@ -44,6 +50,7 @@ Game.prototype.moveTile = function(tile, direction) {
   // Game method here
   switch(direction) {
     case 38: //up
+    console.log("UP")
       this.buildUpArray()
       break
     case 40: //down
@@ -58,42 +65,31 @@ Game.prototype.moveTile = function(tile, direction) {
   }
 }
 
-Game.prototype.transpose = function(array, arrayLength) {
-    var newArray = [];
-    for(var i = 0; i < array.length; i++){
-        newArray.push([]);
-    };
-
-    for(var i = 0; i < array.length; i++){
-        for(var j = 0; j < arrayLength; j++){
-            newArray[j].push(array[i][j]);
-        };
-    };
-    console.log('after' + newArray)
-    return(newArray);
-}
-
 Game.prototype.buildUpArray = function () {
-  // create and feed correct arrays from this.container
-  var arrays = []
+  // empty container for shifted rows
+  var up_arrays = this.container
+
   for (let i = 0; i < 4; i++) {    
-    var a = this.container.slice(i*4, i*4+4)
-    arrays.push(a)
-  }
-  // transpose matrix
-  // TODO fix transpose!!!!!
-  arrays = this.transpose(arrays, 4)
-  for (let i = 0; i < arrays.length; i++) {
-    var b = this.shiftRow(arrays[i])
-
-    // update this.container
+    // blank array to hold elements 
+    var up_a = [];
+    // iterate through container 4 times to build transposed arrays
     for (let j = 0; j < 4; j++) {
-      this.container[i * 4 + j] = b[j]
+      up_a[j] = this.container[j * 4 + i];
+
+      // when array is constructed pass to shiftRow function to shift
+      if (up_a.length === 4) {
+        // console.log("a" + temp_a)
+        var up_b = this.shiftRow(up_a);
+        console.log("b" + up_b)
+
+        // put row elements back in container
+        for (let k = 0; k < 4; k++) {
+          up_arrays[k * 4 + i] = up_b[k]
+        }
+      }
     }
+    this.container = up_arrays
   }
-
-
-
   this.updateBoard()
   this.newTile()
 }
@@ -101,9 +97,9 @@ Game.prototype.buildUpArray = function () {
 Game.prototype.buildLeftArray = function () {
   // create and feed correct arrays from this.container
   for (let i = 0; i < 4; i++) {    
-    // get row to shift
+    var a = this.container.slice(i*4, i*4+4);
+
     // update to be similiar to loop below to update container to make work on cols
-    var a = this.container.slice(i*4, i*4+4)
     var b = this.shiftRow(a)
 
     // update this.container
@@ -168,7 +164,6 @@ Game.prototype.shiftRow = function(row) {
 
 $(document).ready(function() {
   console.log("ready to go!")
-  // Any interactive jQuery functionality
 
   function newGame() {
     game = new Game()
