@@ -199,7 +199,7 @@ $(document).ready(function() {
 
   $('.new-game').on('click', function(event) {
     $('.tile').text('')
-    $('.tile').css('background', 'rgba(238, 228, 218, 0.35)')
+    $('.tile').attr('data-val', "0")
     newGame()
   })
 
