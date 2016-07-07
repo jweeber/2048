@@ -16,7 +16,8 @@ Game.prototype.updateBoard = function() {
     var tileQ = $('#' + i)
     if (this.container[i] != 0) {
       tileQ.attr('data-val', this.container[i])
-      tileQ.text(this.container[i])
+      var tileVal = tileQ.text(this.container[i])
+      if (tileVal === "2048") { $('.win-lose').text('You got 2048!') }
     } else {
       tileQ.attr('data-val', 0)
       tileQ.text("")
@@ -173,6 +174,7 @@ Game.prototype.shiftRow = function(row) {
           var points = shifted[shifted.length-1] *= 2;
           this.score += points
           $('.score').text(this.score)
+
       can_merge = false;
     } else {
       shifted.push(el);
