@@ -44,9 +44,7 @@ Game.prototype.moveTile = function(tile, direction) {
   // Game method here
   switch(direction) {
     case 38: //up
-      console.log('up')
-      // this.buildUpArray()
-      // this.newTile()
+      this.buildUpArray()
       break
     case 40: //down
       console.log('down')
@@ -58,6 +56,46 @@ Game.prototype.moveTile = function(tile, direction) {
       this.buildRightArray()
       break
   }
+}
+
+Game.prototype.transpose = function(array, arrayLength) {
+    var newArray = [];
+    for(var i = 0; i < array.length; i++){
+        newArray.push([]);
+    };
+
+    for(var i = 0; i < array.length; i++){
+        for(var j = 0; j < arrayLength; j++){
+            newArray[j].push(array[i][j]);
+        };
+    };
+    console.log('after' + newArray)
+    return(newArray);
+}
+
+Game.prototype.buildUpArray = function () {
+  // create and feed correct arrays from this.container
+  var arrays = []
+  for (let i = 0; i < 4; i++) {    
+    var a = this.container.slice(i*4, i*4+4)
+    arrays.push(a)
+  }
+  // transpose matrix
+  // TODO fix transpose!!!!!
+  arrays = this.transpose(arrays, 4)
+  for (let i = 0; i < arrays.length; i++) {
+    var b = this.shiftRow(arrays[i])
+
+    // update this.container
+    for (let j = 0; j < 4; j++) {
+      this.container[i * 4 + j] = b[j]
+    }
+  }
+
+
+
+  this.updateBoard()
+  this.newTile()
 }
 
 Game.prototype.buildLeftArray = function () {
@@ -154,6 +192,4 @@ $(document).ready(function() {
       game.moveTile(tile, event.which)
     }
   })
-
-
 })
