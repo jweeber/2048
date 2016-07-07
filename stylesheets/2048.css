@@ -50,15 +50,15 @@ html {
 
 .tile[data-val="0"]    {background-color: rgba(238, 228, 218, 0.35);}
 
-.tile[data-val="2"]    { color: #776e65; background-color: #eee4da; }
-.tile[data-val="4"]    { color: #776e65; background-color: #ede0c8; }
-.tile[data-val="8"]    { background-color: #f2b179; }
-.tile[data-val="16"]   { background-color: #f59563; }
-.tile[data-val="32"]   { background: #f67c5f; }
-.tile[data-val="64"]   { background: #f65e3b; }
-.tile[data-val="128"]  { background: #edcf72; }
-.tile[data-val="256"]  { background: #edcc61; }
-.tile[data-val="512"]  { background: #edc850; }
-.tile[data-val="1024"] { background: #edc53f; }
-.tile[data-val="2048"] { background: #edc22e; }
+.tile[data-val="2"]    { background-image: url("../images/r2d2.jpg"); background-size: cover; }
+.tile[data-val="4"]    { background-image: url("../images/c3po.jpg"); background-size: cover; }
+.tile[data-val="8"]    { background-image: url("../images/bb8.jpg"); background-size: cover; }
+.tile[data-val="16"]   { background-image: url("../images/yoda.png"); background-size: cover; }
+.tile[data-val="32"]   { background-image: url("../images/vader.jpg"); background-size: cover; }
+.tile[data-val="64"]   { background-image: url("../images/storm-trooper.jpg"); background-size: cover; }
+.tile[data-val="128"]  { background-image: url("../images/chewbacca.jpg"); background-size: cover; }
+.tile[data-val="256"]  { background-image: url("../images/leia.jpg"); background-size: cover; }
+.tile[data-val="512"]  { background-image: url("../images/han.jpg"); background-size: cover; }
+.tile[data-val="1024"] { background-image: url("../images/boba.jpg"); background-size: cover;}
+.tile[data-val="2048"] { background-image: url("../images/luke.jpg"); background-size: cover;}
 

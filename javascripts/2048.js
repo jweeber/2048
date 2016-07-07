@@ -16,8 +16,8 @@ Game.prototype.updateBoard = function() {
     var tileQ = $('#' + i)
     if (this.container[i] != 0) {
       tileQ.attr('data-val', this.container[i])
-      var tileVal = tileQ.text(this.container[i])
-      if (tileVal === "2048") { $('.win-lose').text('You got 2048!') }
+      // var tileVal = tileQ.text(this.container[i])
+      if (this.container[i] === "2048") { $('.win-lose').text('You got 2048!') }
     } else {
       tileQ.attr('data-val', 0)
       tileQ.text("")
@@ -26,7 +26,7 @@ Game.prototype.updateBoard = function() {
 }
 
 Game.prototype.newTile = function () {
-  var val = 2
+ var val = 2
 
   // generate new random cell while condition is true
   var random_cell
@@ -40,7 +40,7 @@ Game.prototype.newTile = function () {
   // update div info
   var tileQ = $('#' + random_cell)
   tileQ.attr('data-val', val)
-  tileQ.text(val)
+  // tileQ.text(val)
 }
 
 Game.prototype.moveTile = function(tile, direction) {
