@@ -2,59 +2,42 @@ var Game = function() {
   // Game logic and initialization here
 
   this.container = [
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0],
-    [0, 0, 0, 0]
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0
   ]
-
 }
 
-// Game.prototype.boardState = function() {
-//   // go through current container objects and make an array of used coordinates ([row, col])
-//   var array = []
-//   for (var tile in this.container) {
-//     // console.log(this.container[tile].val + "this continer tile")   
-//     if (this.container[tile].val === undefined) {   
-//     console.log("hallo?")
-//     array.push([this.container[tile].row, this.container[tile].col])
-//     }
-//   }
-//   console.log(array + " = BOARDSTATE ARRAY")
-//   return array
-// }
-
 Game.prototype.updateBoard = function() {
-  console.log(this.container[0])
-  for (let i = 0; i < 4; i++) {
-    for (let j = 0; j < 4; j++) {
-      var id = (i * 4) + j
-      var tileQ = $('#' + id)
-      tileQ.attr('data-val', this.container[i][j])
-      tileQ.text(this.container[i][j])
-      console.log(id)
-      console.log(this.container[i][j])
+  for (let i = 0; i < 16; i++) {
+    var tileQ = $('#' + i)
+    if (this.container[i] != 0) {
+      tileQ.attr('data-val', this.container[i])
+      tileQ.text(this.container[i])
+    } else {
+      tileQ.attr('data-val', 0)
+      tileQ.text("")
     }
   }
 }
 
 Game.prototype.newTile = function () {
-    // get random col and row 
-    var rando_col = Math.floor(Math.random() * (4 - 0) + 0)
-    var rando_row = Math.floor(Math.random() * (4 - 0) + 0)
-    var val = 2
-    if (this.container[rando_row][rando_col] === 0) {
-    this.container[rando_row][rando_col] = val
-    } else {
-      this.newTile()
-    }
-    // get div id
+  var val = 2
 
-    var id = (rando_row * 4) + rando_col
-    // update div info
-    var tileQ = $('#' + id)
-    tileQ.attr('data-val', val)
-    tileQ.text(val)
+  // generate new random cell while condition is true
+  var random_cell
+  do {
+    random_cell = Math.floor(Math.random() * 16)
+  } while (this.container[random_cell] != 0)
+
+  // update container
+  this.container[random_cell] = val
+
+  // update div info
+  var tileQ = $('#' + random_cell)
+  tileQ.attr('data-val', val)
+  tileQ.text(val)
 }
 
 Game.prototype.moveTile = function(tile, direction) {
@@ -62,7 +45,7 @@ Game.prototype.moveTile = function(tile, direction) {
   switch(direction) {
     case 38: //up
       console.log('up')
-      this.buildUpArray()
+      // this.buildUpArray()
       // this.newTile()
       break
     case 40: //down
@@ -73,30 +56,56 @@ Game.prototype.moveTile = function(tile, direction) {
       this.buildLeftArray()
       break
     case 39: //right
-      console.log('right')
+      // this.buildLeftArray()
       break
   }
 }
 
 Game.prototype.buildLeftArray = function () {
-  this.container = this.shiftArrays(this.container)
-  console.log(this.container)
+  // create and feed correct arrays from this.container
+  for (let i = 0; i < 4; i++) {    
+    // get row to shift
+    // update to be similiar to loop below to update container to make work on cols
+    var a = this.container.slice(i*4, i*4+4)
+    var b = this.shiftRow(a)
+
+    // update this.container
+    for (let j = 0; j < 4; j++) {
+      this.container[i * 4 + j] = b[j]
+    }
+  }
   this.updateBoard()
+  this.newTile()
 }
 
-Game.prototype.shiftArrays = function (arrays) {
-  for (var row of arrays) {
-    for (let i = 0; i < (row.length - 1); i++) {
-      if ((row[i] === row[i + 1]) && (row[i] !== 0)) {
-        row[i] = row[i] * 2
-        row[i + 1] = 0
-      } else if (row[i] == 0) {
-        row.shift()
-        row.push(0)
-      }
-    }  
+Game.prototype.shiftRow = function(row) {
+  var shifted = [];
+  var can_merge = true;
+
+  // shift elements in a row to the left
+  for (var el of row) {
+    if (!el) {
+      // always collapse zeros
+      continue;
+    }
+
+    if (can_merge &&
+        // ensure there is something valid to merge with
+        shifted.length && shifted[shifted.length-1] === el) {
+      shifted[shifted.length-1] *= 2;
+      can_merge = false;
+    } else {
+      shifted.push(el);
+      can_merge = true;
+    }
   }
-  return arrays
+
+  // pad array with zeros
+  while (shifted.length < row.length) {
+    shifted.push(0);
+  }
+
+  return shifted;
 }
 
 $(document).ready(function() {
