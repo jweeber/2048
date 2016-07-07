@@ -76,10 +76,6 @@ Game.prototype.buildDownArray = function () {
         // reverse before we send to shiftRow
         var up_a = up_a.reverse()
         var up_b = this.shiftRow(up_a);
-        // if player has lost in this direction
-        if (!up_b) {
-          return false
-        }
         up_b = up_b.reverse()
         // reverse before we send to back to container
 
@@ -110,10 +106,6 @@ Game.prototype.buildUpArray = function () {
       if (up_a.length === 4) {
         // console.log("a" + temp_a)
         var up_b = this.shiftRow(up_a);
-          // if player has lost in this direction
-          if (!up_b) {
-            return false
-          }
 
         // put row elements back in container
         for (let k = 0; k < 4; k++) {
@@ -134,12 +126,6 @@ Game.prototype.buildLeftArray = function () {
 
     // update to be similiar to loop below to update container to make work on cols
     var b = this.shiftRow(a)
-
-    // if player has lost in this direction
-    if (!b) {
-      return false
-    }
-
     // update this.container
     for (let j = 0; j < 4; j++) {
       this.container[i * 4 + j] = b[j]
@@ -158,11 +144,6 @@ Game.prototype.buildRightArray = function () {
     // reverse arrays before sending to shift
     a = a.reverse()
     var b = this.shiftRow(a)
-    // if player has lost in this direction
-    if (!b) {
-      return false
-    }
-
     // reverse back before sending back to container
     b = b.reverse()
 
@@ -180,7 +161,10 @@ Game.prototype.shiftRow = function(row) {
   if (this.checkLose(row)) {
     allLost += 1
     if (allLost === 4) {
-      return false
+      // need to check if other row or col is also lost
+      // if both are lost freeze game and popup alert
+      // if only one direction is lost let the player keep playing
+      // return false
     }
   }
 
