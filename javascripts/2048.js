@@ -14,6 +14,7 @@ var Game = function() {
 Game.prototype.updateBoard = function() {
   for (let i = 0; i < 16; i++) {
     var tileQ = $('#' + i)
+
     if (this.container[i] != 0) {
       tileQ.attr('data-val', this.container[i])
       // var tileVal = tileQ.text(this.container[i])
@@ -64,58 +65,38 @@ Game.prototype.moveTile = function(tile, direction) {
 }
 
 Game.prototype.buildDownArray = function () {
-  // empty container for shifted rows
-  var up_arrays = this.container
-
-  for (let i = 0; i < 4; i++) {    
-    // blank array to hold elements 
-    var up_a = [];
-    // iterate through container 4 times to build transposed arrays
-    for (let j = 0; j < 4; j++) {
-      up_a[j] = this.container[j * 4 + i];
-
-      // when array is constructed pass to shiftRow function to shift
-      if (up_a.length === 4) {
-        // reverse before we send to shiftRow
-        var up_a = up_a.reverse()
-        var up_b = this.shiftRow(up_a);
-        up_b = up_b.reverse()
-        // reverse before we send to back to container
-
-        // put row elements back in container
-        for (let k = 0; k < 4; k++) {
-          up_arrays[k * 4 + i] = up_b[k]
-        }
-      }
+  for (let col = 0; col < 4; col++) {
+    var a = [];
+    for (let row = 0; row < 4; row++) {
+      a[row] = this.container[(3 - row) * 4 + col]
     }
-    this.container = up_arrays
+
+    // update to be similiar to loop below to update container to make work on cols
+    var b = this.shiftRow(a)
+
+    // update this.container
+    for (let row = 0; row < 4; row++) {
+      this.container[(3 - row) * 4 + col] = b[row]
+    }
   }
   this.updateBoard()
   this.newTile()
 }
 
 Game.prototype.buildUpArray = function () {
-  // empty container for shifted rows
-  var up_arrays = this.container
-
-  for (let i = 0; i < 4; i++) {    
-    // blank array to hold elements 
-    var up_a = [];
-    // iterate through container 4 times to build transposed arrays
-    for (let j = 0; j < 4; j++) {
-      up_a[j] = this.container[j * 4 + i];
-
-      // when array is constructed pass to shiftRow function to shift
-      if (up_a.length === 4) {
-        var up_b = this.shiftRow(up_a);
-
-        // put row elements back in container
-        for (let k = 0; k < 4; k++) {
-          up_arrays[k * 4 + i] = up_b[k]
-        }
-      }
+  for (let col = 0; col < 4; col++) {
+    var a = [];
+    for (let row = 0; row < 4; row++) {
+      a[row] = this.container[row * 4 + col];
     }
-    this.container = up_arrays
+
+    // update to be similiar to loop below to update container to make work on cols
+    var b = this.shiftRow(a)
+
+    // update this.container
+    for (let row = 0; row < 4; row++) {
+      this.container[row * 4 + col] = b[row]
+    }
   }
   this.updateBoard()
   this.newTile()
@@ -123,14 +104,18 @@ Game.prototype.buildUpArray = function () {
 
 Game.prototype.buildLeftArray = function () {
   // create and feed correct arrays from this.container
-  for (let i = 0; i < 4; i++) {    
-    var a = this.container.slice(i*4, i*4+4);
+  for (let row = 0; row < 4; row++) {
+    var a = [];
+    for (let col = 0; col < 4; col++) {
+      a[col] = this.container[row * 4 + col]
+    }
 
     // update to be similiar to loop below to update container to make work on cols
     var b = this.shiftRow(a)
+
     // update this.container
-    for (let j = 0; j < 4; j++) {
-      this.container[i * 4 + j] = b[j]
+    for (let col = 0; col < 4; col++) {
+      this.container[row * 4 + col] = b[col]
     }
   }
   this.updateBoard()
@@ -139,19 +124,18 @@ Game.prototype.buildLeftArray = function () {
 
 Game.prototype.buildRightArray = function () {
   // create and feed correct arrays from this.container
-  for (let i = 0; i < 4; i++) {    
-    // get row to shift
+  for (let row = 0; row < 4; row++) {
+    var a = [];
+    for (let col = 0; col < 4; col++) {
+      a[col] = this.container[row * 4 + (3 - col)]
+    }
+
     // update to be similiar to loop below to update container to make work on cols
-    var a = this.container.slice(i*4, i*4+4)
-    // reverse arrays before sending to shift
-    a = a.reverse()
     var b = this.shiftRow(a)
-    // reverse back before sending back to container
-    b = b.reverse()
 
     // update this.container
-    for (let j = 0; j < 4; j++) {
-      this.container[i * 4 + j] = b[j]
+    for (let col = 0; col < 4; col++) {
+      this.container[row * 4 + (3 - col)] = b[col]
     }
   }
   this.updateBoard()
