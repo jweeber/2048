@@ -9,15 +9,10 @@ var Game = function() {
   ]
 
   this.score = 0
-  // this.lost = 0
-  // if (this.lost == 2) {
-  //   // stop game
-  //   alert("You lose.");
-  //   // restart new game or freeze game state
-  // }
 }
 
 Game.prototype.updateBoard = function() {
+  // if board is close to a lose, check for total loss
   if (this.container.includes(0) === false) {
     this.checkAllLose()
   }
@@ -209,7 +204,6 @@ Game.prototype.checkAllLose = function() {
     // check if row is lost
     var b = this.checkLose(a)
     if (!b) {
-      console.log("up/down" + b)
       lost += 1
     }
   }
@@ -224,14 +218,11 @@ Game.prototype.checkAllLose = function() {
     // check if row is lost
     var b = this.checkLose(a)
     if (!b) {
-      console.log("left/right" + b)
       lost += 1
     }
   }
-  console.log("lost" + lost)
   if (lost === 8) {
-    console.log("LOST")
-    alert("You lose.");
+    $('.win-lose').text('These are not the droids you are looking for, move along. (You lose)')
   }
 }
 
