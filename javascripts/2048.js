@@ -102,7 +102,10 @@ Game.prototype.buildUpArray = function () {
       this.container[row * 4 + col] = b[row]
     }
   }
-  this.updateBoard()
+
+  console.log(this.container)
+
+  this.updateBoard(), 1000
   this.newTile()
 }
 

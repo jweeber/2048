@@ -83,11 +83,13 @@ body:after {
 .tile {
   position: absolute;
   top: 0; left: 0;
-  transition: all 0.2s ease-in-out;
+  transition: all 0.5s ease-in-out;
 
-  color: #f9f6f2;
-  background: #000;
 
+
+/*  color: #f9f6f2;
+*//*  background: #000;
+*/
   border-radius: 0.5rem;
   font-size: 1.5rem;
   font-weight: bold;
@@ -108,8 +110,7 @@ body:after {
 .tile[data-col=c2] { left: 9rem; }
 .tile[data-col=c3] { left: 13.5rem; }
 
-.tile[data-val="0"]    {background-color: rgba(238, 228, 218, 0.35);}
-
+.tile[data-val="0"]    { background-color: rgba(238, 228, 218, 0.35);}
 .tile[data-val="2"]    { background-image: url("../images/r2d2.jpg"); background-size: cover; }
 .tile[data-val="4"]    { background-image: url("../images/c3po.jpg"); background-size: cover; }
 .tile[data-val="8"]    { background-image: url("../images/bb8.jpg"); background-size: cover; }
@@ -120,7 +121,5 @@ body:after {
 .tile[data-val="256"]  { background-image: url("../images/leia.jpg"); background-size: cover; }
 .tile[data-val="512"]  { background-image: url("../images/han.jpg"); background-size: cover; }
 .tile[data-val="1024"] { background-image: url("../images/vader.jpg"); background-size: cover; }
-.tile[data-val="2048"] { background-image: url("../images/luke.jpg"); background-size: cover;}
-
-
+.tile[data-val="2048"] { background-image: url("../images/luke.jpg"); background-size: cover; }
 
