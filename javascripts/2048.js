@@ -16,19 +16,20 @@ Game.prototype.updateBoard = function() {
     var tileQ = $('#' + i)
     if (this.container[i] != 0) {
       tileQ.attr('data-val', this.container[i])
-      if (this.container[i] === "2048") { $('.win-lose').text('Used the Force!') }
     } else {
       tileQ.attr('data-val', 0)
       tileQ.text("")
     }
   }
+      if ((tileQ).data('val') === "2048") { $('.win-lose').text('Used the Force!') }
+        console.log(tileQ.data('val'))
 }
 
 Game.prototype.newTile = function () {
  var val = 2
 
   // generate new random cell while condition is true
-  var random_cell
+  var random_cell;
   if (this.container.includes(0) === true) {
     do {
       random_cell = Math.floor(Math.random() * 16)
@@ -229,6 +230,7 @@ $(document).ready(function() {
   $('.new-game').on('click', function(event) {
     $('.tile').text('')
     $('.tile').attr('data-val', "0")
+    $('.points').text('0')
     newGame()
   })
 

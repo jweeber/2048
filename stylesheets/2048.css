@@ -1,6 +1,5 @@
 * {
  color: #e6e600;
-
 }
 
 html {
@@ -121,6 +120,6 @@ body:after {
 .tile[data-val="128"]  { background-image: url("../images/chewbacca.jpg"); background-size: cover; }
 .tile[data-val="256"]  { background-image: url("../images/leia.jpg"); background-size: cover; }
 .tile[data-val="512"]  { background-image: url("../images/han.jpg"); background-size: cover; }
-.tile[data-val="1024"] { background-image: url("../images/boba.jpg"); background-size: cover;}
+.tile[data-val="1024"] { background-image: url("../images/boba.jpeg"); background-size: cover;}
 .tile[data-val="2048"] { background-image: url("../images/luke.jpg"); background-size: cover;}
 
