@@ -16,13 +16,12 @@ Game.prototype.updateBoard = function() {
     var tileQ = $('#' + i)
     if (this.container[i] != 0) {
       tileQ.attr('data-val', this.container[i])
+      if ((tileQ).data('val') === 2048) { $('.win-lose').text('2048! Used the Force!') }
     } else {
       tileQ.attr('data-val', 0)
       tileQ.text("")
     }
   }
-      if ((tileQ).data('val') === "2048") { $('.win-lose').text('Used the Force!') }
-        console.log(tileQ.data('val'))
 }
 
 Game.prototype.newTile = function () {
