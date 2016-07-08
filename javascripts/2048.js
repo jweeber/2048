@@ -222,7 +222,7 @@ Game.prototype.checkAllLose = function() {
     }
   }
   if (lost === 8) {
-    $('.win-lose').text('These are not the droids you are looking for, move along. (You lose)')
+    $('.win-lose').html('These are not the droids <p> you are looking for,</p><p> move along. (You lose)</p>')
   }
 }
 
@@ -256,6 +256,7 @@ $(document).ready(function() {
     $('.tile').text('')
     $('.tile').attr('data-val', "0")
     $('.points').text('0')
+    $('.win-lose').text('')
     newGame()
   })
 
@@ -269,6 +270,9 @@ $(document).ready(function() {
   })
 })
 
-window.onload = function() {
-    document.getElementById("theme-song").play();
-}
+myAudio = new Audio('star-wars-theme-song.mp3'); 
+myAudio.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+}, false);
+myAudio.play();
