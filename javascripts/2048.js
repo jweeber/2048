@@ -173,7 +173,7 @@ Game.prototype.shiftRow = function(row) {
         shifted.length && shifted[shifted.length-1] === el) {
           var points = shifted[shifted.length-1] *= 2;
           this.score += points
-          $('.score').text(this.score)
+          $('.points').text(this.score)
 
       can_merge = false;
     } else {

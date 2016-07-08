@@ -1,18 +1,74 @@
+* {
+ color: #e6e600;
+
+}
+
 html {
-  font: normal normal 30px/1 "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+  font: normal normal 30px/1 'Bangers', cursive;
+}
+
+body:after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-image: url("../images/background-space.jpg");
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+
+.logo {
+  display: block;
+  margin: auto;
+}
+
+.new-game {
+  float: left;
+}
+
+.scoring {
+  float: right;
+  margin-top: 5%;
+  margin-right: 5%;
+  text-align: center;
+  font-size: 40px;
+}
+
+.new-game {
+  background-color: Transparent;
+  font-weight: bolder;
+  border: 2px solid;
+  margin-top: 5%;
+  margin-left: 2%;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 15px;
+  height: 4em;
+  width: 15em;
+}
+
+.new-game:hover {
+  border-style: 2px;
+  border-color: rgb(26, 83, 255);
+  border-radius: 15px;
+  transition: all 0.25s linear;
 }
 
 #gameboard {
-  background: #bbada0;
+  background:  #002080;
   border-radius: 0.5rem;
   height: 18.5rem;
-  margin: 1rem auto;
+  margin: 0.5rem auto;
   position: relative;
   width: 18.5rem;
 }
 
 .cell {
-  background: rgba(238, 228, 218, 0.35);
+  background: rgba(26, 83, 255, 0.35);
   border-radius: 0.5rem;
   float: left;
   height: 4rem;
