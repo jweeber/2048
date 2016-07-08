@@ -58,6 +58,12 @@ body:after {
   transition: all 0.25s linear;
 }
 
+.win-lose {
+  font-size: 20px;
+  float: left;
+  margin-top: 3%;
+}
+
 #gameboard {
   background:  #002080;
   border-radius: 0.5rem;

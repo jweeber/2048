@@ -2,10 +2,10 @@ var Game = function() {
   // Game logic and initialization here
 
   this.container = [
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0,
-    0, 0, 0, 0
+  0, 0, 0, 0,
+  0, 0, 0, 0,
+  0, 0, 0, 0,
+  0, 0, 0, 0
   ]
 
   this.score = 0
@@ -16,8 +16,7 @@ Game.prototype.updateBoard = function() {
     var tileQ = $('#' + i)
     if (this.container[i] != 0) {
       tileQ.attr('data-val', this.container[i])
-      // var tileVal = tileQ.text(this.container[i])
-      if (this.container[i] === "2048") { $('.win-lose').text('You got 2048!') }
+      if (this.container[i] === "2048") { $('.win-lose').text('Used the Force!') }
     } else {
       tileQ.attr('data-val', 0)
       tileQ.text("")
@@ -49,17 +48,17 @@ Game.prototype.moveTile = function(tile, direction) {
   // Game method here
   switch(direction) {
     case 38: //up
-      this.buildUpArray()
-      break
+    this.buildUpArray()
+    break
     case 40: //down
-      this.buildDownArray()
-      break
+    this.buildDownArray()
+    break
     case 37: //left
-      this.buildLeftArray()
-      break
+    this.buildLeftArray()
+    break
     case 39: //right
-      this.buildRightArray()
-      break
+    this.buildRightArray()
+    break
   }
 }
 
@@ -183,15 +182,15 @@ Game.prototype.shiftRow = function(row) {
     if (can_merge &&
         // ensure there is something valid to merge with
         shifted.length && shifted[shifted.length-1] === el) {
-          var points = shifted[shifted.length-1] *= 2;
-          this.score += points
-          $('.points').text(this.score)
-      can_merge = false;
-    } else {
-      shifted.push(el);
-      can_merge = true;
-    }
+      var points = shifted[shifted.length-1] *= 2;
+    this.score += points
+    $('.points').text(this.score)
+    can_merge = false;
+  } else {
+    shifted.push(el);
+    can_merge = true;
   }
+}
 
   // pad array with zeros
   while (shifted.length < row.length) {
