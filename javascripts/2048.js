@@ -1,13 +1,31 @@
+
+// var Tile = function(index) {
+//    // value = current val, index = current position
+//   this.value = 0;
+//   this.el = $("#" + index);
+//   // if moved: 
+//   this.moved = false
+//   this.collided = false
+//   this.prev_position
+//   this.prev_value
+//   }
+  // [
+  // new Tile(0), new Tile(1), new Tile(2), new Tile(3),
+  // new Tile(4), new Tile(5), new Tile(6), new Tile(7),
+  // new Tile(8), new Tile(9), new Tile(10), new Tile(11),
+  // new Tile(12), new Tile(13), new Tile(14), new Tile(15)
+  // ]
+
+
 var Game = function() {
   // Game logic and initialization here
 
   this.container = [
-  0, 0, 0, 0,
-  0, 0, 0, 0,
-  0, 0, 0, 0,
-  0, 0, 0, 0
-  ]
-
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0,
+    0, 0, 0, 0
+    ]
   this.score = 0
 }
 
@@ -241,6 +259,42 @@ Game.prototype.checkLose = function(array) {
     prev = li
   }
   return false
+}
+
+
+// track changes for css movements
+Game.prototype.trackChange(prev_array, current_array) {
+  var p_a = prev_array
+  var c_a = current_array
+
+  for (var i = 3; i >= 0; i--) {
+    if (p_a[i] === 0) {
+      p_a.pop()
+    }
+
+    if (c_a[i] === 0) {
+      c_a.pop()
+    }
+  }
+
+  // track farthest MOVE of a tile toward the front and collisions
+  var total_movement = [c_a.length-1, p_a.length-1]
+
+  // find collision index(s) 
+  var collision_index = []
+  for (var i = 1; i < 3) {
+    if (prev_array[i] === prev_array[i-1]) {
+      collision_index.push(prev_array[i-1])
+      i += 2
+    }
+    i++
+  }
+
+  // return object with movements array and collisions array
+  return {
+    'movements': total_movement,
+    'collisions': collision_index
+  }
 }
 
 $(document).ready(function() {
