@@ -237,11 +237,12 @@ Game.prototype.checkLose = function(array) {
 }
 
 
+
 // track changes for css movements
 // CONCEPT CODE, CURRENTLY NOT IN USE
 // if we want to expand we need to keep all these change objects
 // then apply css to them to convey movement and effect for collision
-Game.prototype.trackChange(prev_array, current_array) {
+Game.prototype.trackChange = function(prev_array, current_array) {
   var p_a = prev_array
   var c_a = current_array
 
@@ -260,7 +261,7 @@ Game.prototype.trackChange(prev_array, current_array) {
 
   // find collision index(s) 
   var collision_index = []
-  for (var i = 1; i < 3) {
+  for (var i = 1; i < 3;) {
     if (prev_array[i] === prev_array[i-1]) {
       collision_index.push(prev_array[i-1])
       i += 2
