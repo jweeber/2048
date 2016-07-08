@@ -9,9 +9,19 @@ var Game = function() {
   ]
 
   this.score = 0
+  // this.lost = 0
+  // if (this.lost == 2) {
+  //   // stop game
+  //   alert("You lose.");
+  //   // restart new game or freeze game state
+  // }
 }
 
 Game.prototype.updateBoard = function() {
+  if (this.container.includes(0) === false) {
+    this.checkAllLose()
+  }
+
   for (let i = 0; i < 16; i++) {
     var tileQ = $('#' + i)
 
@@ -147,10 +157,12 @@ Game.prototype.shiftRow = function(row) {
   if (this.checkLose(row)) {
     allLost += 1
     if (allLost === 4) {
+      this.lost += 1
       // need to check if other row or col is also lost
       // if both are lost freeze game and popup alert
       // if only one direction is lost let the player keep playing
       // return false
+
     }
   }
 
@@ -183,6 +195,45 @@ Game.prototype.shiftRow = function(row) {
   }
 
   return shifted;
+}
+
+
+Game.prototype.checkAllLose = function() {
+  var lost = 0
+  // check that up/down are lost
+  for (let col = 0; col < 4; col++) {
+    var a = [];
+    for (let row = 0; row < 4; row++) {
+      a[row] = this.container[row * 4 + col];
+    }
+
+    // check if row is lost
+    var b = this.checkLose(a)
+    if (!b) {
+      console.log("up/down" + b)
+      lost += 1
+    }
+  }
+
+  // check left/right are lost
+  for (let row = 0; row < 4; row++) {
+    var a = [];
+    for (let col = 0; col < 4; col++) {
+      a[col] = this.container[row * 4 + (3 - col)]
+    }
+
+    // check if row is lost
+    var b = this.checkLose(a)
+    if (!b) {
+      console.log("left/right" + b)
+      lost += 1
+    }
+  }
+  console.log("lost" + lost)
+  if (lost === 8) {
+    console.log("LOST")
+    alert("You lose.");
+  }
 }
 
 Game.prototype.checkLose = function(array) {
